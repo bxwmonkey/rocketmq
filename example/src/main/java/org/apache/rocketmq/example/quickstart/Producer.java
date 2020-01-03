@@ -19,6 +19,7 @@ package org.apache.rocketmq.example.quickstart;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.client.producer.selector.SelectMessageQueueByHash;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 
@@ -31,7 +32,9 @@ public class Producer {
         /*
          * Instantiate with a producer group name.
          */
-        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
+        DefaultMQProducer producer = new DefaultMQProducer("bi_group_test");
+//        producer.setDefaultTopicQueueNums(2);
+        producer.setNamesrvAddr("127.0.0.1:9876");
 
         /*
          * Specify name server addresses.
@@ -56,8 +59,8 @@ public class Producer {
                 /*
                  * Create a message instance, specifying topic, tag and message body.
                  */
-                Message msg = new Message("TopicTest" /* Topic */,
-                    "TagA" /* Tag */,
+                Message msg = new Message("BiTopicTest-1" /* Topic */,
+                    "TagA_Bi-1" /* Tag */,
                     ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
                 );
 
